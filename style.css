@@ -571,3 +571,53 @@ footer{
   z-index:1001;
   position:fixed;
 }
+@media (max-width: 768px) {
+
+  /* NAV */
+  nav, .nav-premium{
+    flex-direction:column;
+    text-align:center;
+    padding:15px;
+  }
+
+  /* HERO */
+  .hero-content h2{
+    font-size:28px;
+  }
+
+  /* CARDS */
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  /* SIDEBAR → diventa orizzontale o nascosta */
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+    flex-direction:row;
+    justify-content:space-around;
+  }
+
+  .content{
+    margin-left:0;
+  }
+
+  /* CARRELLO */
+  .cart{
+    width:100%;
+    right:-100%;
+  }
+
+  .cart.open{
+    right:0;
+  }
+
+  /* BOTTONE CARRELLO */
+  .cart-btn{
+    top:10px;
+    right:10px;
+    padding:12px;
+  }
+
+}
