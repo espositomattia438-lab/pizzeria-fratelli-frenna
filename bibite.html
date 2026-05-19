@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bibite - I FRATELLI FRENNA</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<button class="cart-btn" onclick="toggleCart()">
+  🛒
+  <span id="cart-count">0</span>
+</button>
+
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+<div class="cart" id="cart">
+  <h2>Carrello</h2>
+
+  <div id="cart-items"></div>
+
+  <h3 id="total">Totale: €0.00</h3>
+</div>
+<div class="sidebar">
+
+  <h2>MENU</h2>
+
+  <a href="menu.html">🍕 Pizze</a>
+  <a href="bibite.html">🥤 Bibite</a>
+  <a href="index.html">🏠 Home</a>
+
+</div>
+
+<div class="content">
+
+  <section class="menu-section">
+
+    <h1>🥤 BIBITE</h1>
+
+    <div class="cards">
+
+      <div class="card">
+  <img src="https://images.unsplash.com/photo-1581006852262-e4307cf6283a?auto=format&fit=crop&w=800&q=80">
+  <h3>Coca Cola</h3>
+  <span>€2.50</span>
+
+  <button onclick="addToCart('Coca Cola', 2.5)">Aggiungi</button>
+</div>
+
+      <div class="card">
+  <img src="https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=800&q=80">
+  <h3>Fanta</h3>
+  <span>€2.50</span>
+
+  <button onclick="addToCart('Fanta', 2.5)">Aggiungi</button>
+</div>
+
+      
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1604908177522-0409f4f4b0b6?auto=format&fit=crop&w=800&q=80">
+        <h3>Birra</h3>
+        <span>€3.50</span>
+
+        <button onclick="addToCart('Birra', 3.5)">Aggiungi</button>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+</body>
+<script>
+const cards = document.querySelectorAll(".card");
+
+cards.forEach(card => {
+  card.addEventListener("click", () => {
+
+    // togli selezione da tutte
+    cards.forEach(c => c.classList.remove("selected"));
+
+    // aggiungi selezione a quella cliccata
+    card.classList.add("selected");
+
+  });
+});
+</script>
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* APERTURA / CHIUSURA */
+function toggleCart(){
+  document.getElementById("cart").classList.toggle("open");
+  document.getElementById("overlay").classList.toggle("show");
+}
+
+/* AGGIUNGI */
+function addToCart(name, price){
+  cart.push({name, price});
+  saveCart();
+  renderCart();
+}
+
+/* RIMUOVI */
+function removeItem(index){
+  cart.splice(index, 1);
+  saveCart();
+  renderCart();
+}
+
+/* SALVA NEL BROWSER */
+function saveCart(){
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+/* RENDER */
+function renderCart(){
+  const container = document.getElementById("cart-items");
+  const totalEl = document.getElementById("total");
+  const countEl = document.getElementById("cart-count");
+
+  container.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price;
+
+    container.innerHTML += `
+      <div class="cart-item">
+        <p>${item.name} - €${item.price}</p>
+        <button onclick="removeItem(${index})">Rimuovi</button>
+      </div>
+    `;
+  });
+
+  totalEl.innerText = "Totale: €" + total.toFixed(2);
+  countEl.innerText = cart.length;
+}
+
+/* inizializza tutto appena carica la pagina */
+renderCart();
+
+</script>
+</html>

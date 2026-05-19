@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prenotazioni - I FRATELLI FRENNA</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script>
+  (function(){
+    emailjs.init("umT90KszPZHkOeMsd");
+  })();
+</script>
+
+</head>
+
+<body>
+
+<nav>
+  <h1>I FRATELLI FRENNA</h1>
+
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+  </ul>
+</nav>
+
+<section class="prenotazioni">
+
+  <h2>Prenota un Tavolo 🍕</h2>
+
+  <form id="prenotazione-form">
+
+    <input name="nome" type="text" placeholder="Nome" required>
+
+    <input name="email" type="email" placeholder="Email" required>
+
+    <input name="telefono" type="tel" placeholder="Telefono" required>
+
+    <input name="data" type="date" required>
+
+    <input name="ora" type="time" required>
+
+    <textarea name="messaggio" placeholder="Messaggio"></textarea>
+
+    <button type="submit">Prenota</button>
+
+  </form>
+
+</section>
+
+<footer>
+  <p>© 2026 I FRATELLI FRENNA</p>
+</footer>
+
+<!-- SCRIPT INVIO EMAIL -->
+<script>
+document.getElementById("prenotazione-form").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  emailjs.sendForm(
+    "service_yehdm56",
+    "template_ugafsie",
+    this
+  ).then(function(){
+    alert("Prenotazione inviata con successo!");
+  }, function(error){
+    alert("Errore nell'invio");
+    console.log(error);
+  });
+
+});
+</script>
+
+</body>
+</html>
