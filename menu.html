@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pizze - I FRATELLI FRENNA</title>
 
-<link rel="stylesheet" href="style.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizze - I FRATELLI FRENNA</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-   <button class="cart-btn" onclick="toggleCart()">
-  🛒
-  <span id="cart-count">0</span>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeAll()"></div>
+
+<!-- MENU BUTTON -->
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+<div class="sidebar" id="sidebar">
+
+  <h2>MENU</h2>
+
+  <a href="index.html">🏠 Home</a>
+  <a href="menu.html">🍕 Pizze</a>
+  <a href="bibite.html">🥤 Bibite</a>
+
+</div>
+
+<!-- CARRELLO BUTTON -->
+<button class="cart-btn" onclick="toggleCart()">
+  🛒 <span id="cart-count">0</span>
 </button>
 
-<div class="overlay" id="overlay" onclick="toggleCart()"></div>
-
+<!-- CARRELLO -->
 <div class="cart" id="cart">
-  <h2>Carrello</h2>
+
+  <h2>🛒 Carrello</h2>
 
   <div id="cart-items"></div>
 
   <h3 id="total">Totale: €0.00</h3>
-</div>
-
-<div class="sidebar">
-
-  <h2>MENU</h2>
-
-  <a href="menu.html">🍕 Pizze</a>
-  <a href="bibite.html">🥤 Bibite</a>
-  <a href="index.html">🏠 Home</a>
 
 </div>
 
+<!-- CONTENUTO -->
 <div class="content">
 
   <section class="menu-section">
@@ -43,38 +53,28 @@
     <div class="cards">
 
       <div class="card">
-  <img src="https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=800&q=80">
-  <h3>Margherita</h3>
-  <p>Pomodoro, mozzarella</p>
-  <span>€7</span>
+        <img src="https://assets-eu-01.kc-usercontent.com/6190ffc3-df26-019e-e092-120e0715df95/9c076f13-af22-410c-876d-7986dd243846/Pizza%20margherita.png?w=626&fm=webp&lossless=0&q=80">
 
-  <button onclick="addToCart('Margherita', 7)">Aggiungi</button>
-</div>
+        <h3>Margherita</h3>
+
+        <span>€7</span>
+
+        <button onclick="addToCart('Margherita', 7)">
+          Aggiungi
+        </button>
+      </div>
 
       <div class="card">
-  <img src="https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=800&q=80">
-  <h3>Margherita</h3>
-  <p>Pomodoro, mozzarella</p>
-  <span>€7</span>
+        <img src="https://www.salumikings.it/wp-content/uploads/2024/10/Piizza-diavola-Kings.jpg">
 
-  <button onclick="addToCart('Margherita', 7)">Aggiungi</button>
-</div>
-      <div class="card">
-  <img src="https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=800&q=80">
-  <h3>Margherita</h3>
-  <p>Pomodoro, mozzarella</p>
-  <span>€7</span>
+        <h3>Diavola</h3>
 
-  <button onclick="addToCart('Margherita', 7)">Aggiungi</button>
-</div>
-      <div class="card">
-  <img src="https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=800&q=80">
-  <h3>Margherita</h3>
-  <p>Pomodoro, mozzarella</p>
-  <span>€7</span>
+        <span>€9</span>
 
-  <button onclick="addToCart('Margherita', 7)">Aggiungi</button>
-</div>
+        <button onclick="addToCart('Diavola', 9)">
+          Aggiungi
+        </button>
+      </div>
 
     </div>
 
@@ -82,64 +82,76 @@
 
 </div>
 
-</body>
-<div class="cart">
-
-  <h2>🛒 Carrello</h2>
-
-  <div id="cart-items"></div>
-
-  <h3 id="total">Totale: €0.00</h3>
-
-</div>
-<script>
-const cards = document.querySelectorAll(".card");
-
-cards.forEach(card => {
-  card.addEventListener("click", () => {
-
-    // togli selezione da tutte
-    cards.forEach(c => c.classList.remove("selected"));
-
-    // aggiungi selezione a quella cliccata
-    card.classList.add("selected");
-
-  });
-});
-</script>
+<!-- SCRIPT -->
 <script>
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-/* APERTURA / CHIUSURA */
-function toggleCart(){
-  document.getElementById("cart").classList.toggle("open");
+/* MENU */
+function toggleMenu(){
+
+  document.getElementById("sidebar").classList.toggle("open");
+
   document.getElementById("overlay").classList.toggle("show");
+
 }
 
-/* AGGIUNGI */
+/* CARRELLO */
+function toggleCart(){
+
+  document.getElementById("cart").classList.toggle("open");
+
+  document.getElementById("overlay").classList.toggle("show");
+
+}
+
+/* CHIUDI TUTTO */
+function closeAll(){
+
+  document.getElementById("sidebar").classList.remove("open");
+
+  document.getElementById("cart").classList.remove("open");
+
+  document.getElementById("overlay").classList.remove("show");
+
+}
+
+/* AGGIUNGI AL CARRELLO */
 function addToCart(name, price){
+
   cart.push({name, price});
+
   saveCart();
+
   renderCart();
+
 }
 
 /* RIMUOVI */
 function removeItem(index){
+
   cart.splice(index, 1);
+
   saveCart();
+
   renderCart();
+
 }
 
-/* SALVA NEL BROWSER */
+/* SALVA */
 function saveCart(){
+
   localStorage.setItem("cart", JSON.stringify(cart));
+
 }
 
 /* RENDER */
 function renderCart(){
+
   const container = document.getElementById("cart-items");
+
   const totalEl = document.getElementById("total");
+
   const countEl = document.getElementById("cart-count");
 
   container.innerHTML = "";
@@ -147,22 +159,52 @@ function renderCart(){
   let total = 0;
 
   cart.forEach((item, index) => {
+
     total += item.price;
 
     container.innerHTML += `
       <div class="cart-item">
+
         <p>${item.name} - €${item.price}</p>
-        <button onclick="removeItem(${index})">Rimuovi</button>
+
+        <button onclick="removeItem(${index})">
+          X
+        </button>
+
       </div>
     `;
   });
 
   totalEl.innerText = "Totale: €" + total.toFixed(2);
+
   countEl.innerText = cart.length;
+
 }
 
-/* inizializza tutto appena carica la pagina */
+/* ESC */
+document.addEventListener("keydown", function(event){
+
+  if(event.key === "Escape"){
+
+    closeAll();
+
+  }
+
+});
+
 renderCart();
 
 </script>
+<script>
+
+function toggleMenu(){
+
+  const sidebar = document.getElementById("sidebar");
+
+  sidebar.classList.toggle("open");
+
+}
+
+</script>
+</body>
 </html>
