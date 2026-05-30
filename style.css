@@ -601,6 +601,20 @@ body{
   background-size:650px;
 
   opacity:0.18;
+   
 
   z-index:-1;
+}
+@media screen and (max-width:768px){
+
+  .menu-section::before{
+
+    background-size:300px;
+
+    opacity:0.15;
+
+    background-position:center center;
+
+  }
+
 }
