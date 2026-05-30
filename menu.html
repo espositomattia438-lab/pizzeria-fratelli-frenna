@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pizze - I FRATELLI FRENNA</title>
+  <title>Pizze - Pizzeria del popolo</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -87,33 +87,20 @@
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-/* MENU */
 function toggleMenu(){
-
   document.getElementById("sidebar").classList.toggle("open");
-
-  document.getElementById("overlay").classList.toggle("show");
-
+  document.getElementById("overlay").classList.add("show");
 }
 
-/* CARRELLO */
 function toggleCart(){
-
   document.getElementById("cart").classList.toggle("open");
-
-  document.getElementById("overlay").classList.toggle("show");
-
+  document.getElementById("overlay").classList.add("show");
 }
 
-/* CHIUDI TUTTO */
 function closeAll(){
-
   document.getElementById("sidebar").classList.remove("open");
-
   document.getElementById("cart").classList.remove("open");
-
   document.getElementById("overlay").classList.remove("show");
-
 }
 
 /* AGGIUNGI AL CARRELLO */
