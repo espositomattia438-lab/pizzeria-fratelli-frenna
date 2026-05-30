@@ -135,69 +135,46 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 /* MENU */
 function toggleMenu(){
-
   document.getElementById("sidebar").classList.toggle("open");
-
-  document.getElementById("overlay").classList.toggle("show");
-
+  document.getElementById("overlay").classList.add("show");
 }
 
 /* CARRELLO */
 function toggleCart(){
-
   document.getElementById("cart").classList.toggle("open");
-
-  document.getElementById("overlay").classList.toggle("show");
-
+  document.getElementById("overlay").classList.add("show");
 }
 
-/* CHIUDI TUTTO */
+/* CHIUDI TUTTO (CLICK FUORI) */
 function closeAll(){
-
   document.getElementById("sidebar").classList.remove("open");
-
   document.getElementById("cart").classList.remove("open");
-
   document.getElementById("overlay").classList.remove("show");
-
 }
 
 /* AGGIUNGI */
 function addToCart(name, price){
-
   cart.push({name, price});
-
   saveCart();
-
   renderCart();
-
 }
 
 /* RIMUOVI */
 function removeItem(index){
-
   cart.splice(index, 1);
-
   saveCart();
-
   renderCart();
-
 }
 
 /* SALVA */
 function saveCart(){
-
   localStorage.setItem("cart", JSON.stringify(cart));
-
 }
 
 /* RENDER */
 function renderCart(){
-
   const container = document.getElementById("cart-items");
-
   const totalEl = document.getElementById("total");
-
   const countEl = document.getElementById("cart-count");
 
   container.innerHTML = "";
@@ -205,41 +182,28 @@ function renderCart(){
   let total = 0;
 
   cart.forEach((item, index) => {
-
     total += item.price;
 
     container.innerHTML += `
       <div class="cart-item">
-
         <p>${item.name} - €${item.price}</p>
-
-        <button onclick="removeItem(${index})">
-          X
-        </button>
-
+        <button onclick="removeItem(${index})">X</button>
       </div>
     `;
   });
 
   totalEl.innerText = "Totale: €" + total.toFixed(2);
-
   countEl.innerText = cart.length;
-
 }
 
 /* ESC */
 document.addEventListener("keydown", function(event){
-
   if(event.key === "Escape"){
-
     closeAll();
-
   }
-
 });
 
 renderCart();
-
 </script>
 <script>
 
